@@ -29,9 +29,6 @@ prop_prim :: [Int] -> Bool
 prop_prim xs = (Right xsv) == decode (encode xsv)
   where xsv = VP.fromList xs
 
-instance Serialize (VU.Vector Int) where
-  get = genericGetVector ; put = genericPutVector
-
 prop_unbox :: [Int] -> Bool
 prop_unbox xs = (Right xsv) == decode (encode xsv)
   where xsv = VU.fromList xs

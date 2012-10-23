@@ -5,11 +5,6 @@
 -- vectors. Orphan instances are provided for 'Data.Vector' and
 -- 'Data.Vector.Primitive' vectors.
 --
--- Instances are /not/ provided for 'Data.Vector.Unbox' vectors, as
--- they must be declared on an individual basis for each type the
--- vectors may contain. The 'genericGet' and 'genericPut' functions
--- should still work for these vectors without declaring instances.
---
 -- The serialized format is an 'Int64' representing the
 -- length of the 'Vector', followed by the serialized contents of each
 -- element.
@@ -27,9 +22,10 @@ import Control.Monad
 
 import Data.Int (Int64)
 import Data.Serialize (Get, Putter, Serialize(..))
-import qualified Data.Vector as V
+import qualified Data.Vector           as V
 import qualified Data.Vector.Primitive as VP
-import qualified Data.Vector.Generic as VG
+import qualified Data.Vector.Unboxed   as VU
+import qualified Data.Vector.Generic   as VG
 
 
 -- | Read a 'Data.Vector.Generic.Vector' using custom decoder for
@@ -68,6 +64,11 @@ instance (Serialize a) => Serialize (V.Vector a) where
   {-# INLINE put #-}
 
 instance (Serialize a, VP.Prim a) => Serialize (VP.Vector a) where
+  get = genericGetVector ; put = genericPutVector
+  {-# INLINE get #-}
+  {-# INLINE put #-}
+
+instance (Serialize a, VU.Unbox a) => Serialize (VU.Vector a) where
   get = genericGetVector ; put = genericPutVector
   {-# INLINE get #-}
   {-# INLINE put #-}
