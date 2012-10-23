@@ -14,7 +14,6 @@ import qualified Data.Vector.Unboxed   as VU
 import Test.QuickCheck.All
 
 import Data.Vector.Serialize
-import Data.Vector.Storable.Serialize ()
 
 
 prop_vec :: [Int] -> Bool

@@ -26,6 +26,8 @@ import qualified Data.Vector           as V
 import qualified Data.Vector.Primitive as VP
 import qualified Data.Vector.Unboxed   as VU
 import qualified Data.Vector.Generic   as VG
+import qualified Data.Vector.Storable  as VS
+
 
 
 -- | Read a 'Data.Vector.Generic.Vector' using custom decoder for
@@ -69,6 +71,11 @@ instance (Serialize a, VP.Prim a) => Serialize (VP.Vector a) where
   {-# INLINE put #-}
 
 instance (Serialize a, VU.Unbox a) => Serialize (VU.Vector a) where
+  get = genericGetVector ; put = genericPutVector
+  {-# INLINE get #-}
+  {-# INLINE put #-}
+
+instance (Serialize a, VS.Storable a) => Serialize (VS.Vector a) where
   get = genericGetVector ; put = genericPutVector
   {-# INLINE get #-}
   {-# INLINE put #-}
