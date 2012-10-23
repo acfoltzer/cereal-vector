@@ -31,6 +31,7 @@ import qualified Data.Vector.Generic as VG
 
 -- | Read a 'Data.Vector.Generic.Vector'.
 genericGetVector :: (Serialize a, VG.Vector v a) => Get (v a)
+{-# INLINE genericGetVector #-}
 genericGetVector = do 
   len64 <- (get :: Get Int64)
   when (len64 > fromIntegral (maxBound :: Int)) $
@@ -39,12 +40,17 @@ genericGetVector = do
 
 -- | Write a 'Data.Vector.Generic.Vector'.
 genericPutVector :: (Serialize a, VG.Vector v a) => Putter (v a)
+{-# INLINE genericPutVector #-}
 genericPutVector v = do
   put $ ((fromIntegral $ VG.length v) :: Int64)
   VG.mapM_ put v
 
 instance (Serialize a) => Serialize (V.Vector a) where
   get = genericGetVector ; put = genericPutVector
+  {-# INLINE get #-}
+  {-# INLINE put #-}
 
 instance (Serialize a, VP.Prim a) => Serialize (VP.Vector a) where
   get = genericGetVector ; put = genericPutVector
+  {-# INLINE get #-}
+  {-# INLINE put #-}
