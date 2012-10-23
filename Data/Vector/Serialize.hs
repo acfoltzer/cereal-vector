@@ -1,6 +1,4 @@
-{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wall -fno-warn-orphans #-}
-
 -- | 'Data.Serialize' functions for 'Data.Vector.Generic.Vector'
 -- vectors. Orphan instances are provided for 'Data.Vector' and
 -- 'Data.Vector.Primitive' vectors.

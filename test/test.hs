@@ -1,19 +1,17 @@
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TemplateHaskell #-}
-
 import Control.Monad
 
 import Data.Int       (Int64)
-import Data.Serialize (decode, encode, Serialize(..))
+import Data.Serialize (decode, encode)
 import qualified Data.Vector           as V
 import qualified Data.Vector.Primitive as VP
-import qualified Data.Vector.Generic   as VG
+-- import qualified Data.Vector.Generic   as VG
 import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector.Unboxed   as VU
 
 import Test.QuickCheck.All
 
-import Data.Vector.Serialize
+import Data.Vector.Serialize ()
 
 
 prop_vec :: [Int] -> Bool
