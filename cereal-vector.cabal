@@ -20,6 +20,6 @@ library
   exposed-modules:     Data.Vector.Serialize
                      , Data.Vector.Storable.Serialize
   build-depends:       base == 4.*
-                     , vector == 0.9.*                     
+                     , vector >= 0.9
                      , cereal == 0.3.*
-                     , bytestring == 0.9.*
+                     , bytestring >= 0.9
