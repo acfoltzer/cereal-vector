@@ -1,5 +1,5 @@
 name:                cereal-vector
-version:             0.1.0.0
+version:             0.2.0.0
 synopsis:            Serialize instances for Data.Vector types.
 homepage:            https://github.com/acfoltzer/cereal-vector
 bug-reports:         https://github.com/acfoltzer/cereal-vector/issues
