@@ -1,5 +1,5 @@
 name:                cereal-vector
-version:             0.1.0.0
+version:             0.2.0.0
 synopsis:            Serialize instances for Data.Vector types.
 homepage:            https://github.com/acfoltzer/cereal-vector
 bug-reports:         https://github.com/acfoltzer/cereal-vector/issues
@@ -18,8 +18,22 @@ source-repository head
 
 library
   exposed-modules:     Data.Vector.Serialize
-                     , Data.Vector.Storable.Serialize
   build-depends:       base == 4.*
-                     , vector == 0.9.*                     
+                     , vector >= 0.9
                      , cereal == 0.3.*
-                     , bytestring == 0.9.*
+                     , bytestring >= 0.9
+
+test-suite test
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        test.hs
+  other-modules:
+
+  ghc-options:
+    -Wall -O2
+  build-depends:
+    base,
+    vector,
+    cereal,
+    cereal-vector,
+    QuickCheck
