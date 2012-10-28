@@ -1,14 +1,15 @@
 {-# OPTIONS_GHC -Wall -fno-warn-orphans #-}
--- | 'Data.Serialize' functions for 'Data.Vector.Generic.Vector'
--- vectors. Orphan instances are provided for 'Data.Vector' and
--- 'Data.Vector.Primitive' vectors.
+-- | "Data.Serialize" functions for "Data.Vector.Generic"
+-- vectors. Orphan instances are provided for "Data.Vector",
+-- "Data.Vector.Unboxed", "Data.Vector.Storable", and
+-- "Data.Vector.Primitive" vectors.
 --
--- The serialized format is an 'Int64' representing the
--- length of the 'Vector', followed by the serialized contents of each
--- element.
+-- The serialized format is an 'Int64' representing the length of the
+-- vector, followed by the "Data.Serialize"d contents of each element.
 --
--- Note that the instances specialized for 'Data.Vector.Storable' are
--- much more performant for storable vectors.
+-- Note that the functions in "Data.Vector.Storable.UnsafeSerialize"
+-- perform much better when serialization does not need to account for
+-- host endianness and word size.
 module Data.Vector.Serialize (
     genericGetVector
   , genericPutVector
@@ -26,10 +27,8 @@ import qualified Data.Vector.Unboxed   as VU
 import qualified Data.Vector.Generic   as VG
 import qualified Data.Vector.Storable  as VS
 
-
-
--- | Read a 'Data.Vector.Generic.Vector' using custom decoder for
---   vector's elements.
+-- | Read a 'Data.Vector.Generic.Vector' using custom 'Get' for the
+-- vector's elements.
 genericGetVectorWith :: (VG.Vector v a) => Get a -> Get (v a)
 {-# INLINE genericGetVectorWith #-}
 genericGetVectorWith getter = do
@@ -38,8 +37,8 @@ genericGetVectorWith getter = do
     fail "Host can't deserialize a Vector longer than (maxBound :: Int)"
   VG.replicateM (fromIntegral len64) getter
 
--- | Write a 'Data.Vector.Generic.Vector' using custom putter for
---   vector's elements.
+-- | Write a 'Data.Vector.Generic.Vector' using custom 'Putter' for
+-- the vector's elements.
 genericPutVectorWith :: (VG.Vector v a) => Putter a -> Putter (v a)
 {-# INLINE genericPutVectorWith #-}
 genericPutVectorWith putter v = do

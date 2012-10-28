@@ -1,11 +1,12 @@
 {-# LANGUAGE ScopedTypeVariables, Unsafe #-}
 {-# OPTIONS_GHC -Wall #-}
 
--- | Efficient, but unsafe 'Get' and 'Put' for 'Data.Vector.Storable'
--- vectors. The serialized format is an 'Int64' representing the
--- length of the 'Vector', followed by the raw bytes. Therefore
--- behavior may be unpredictable if serialized data is transferred
--- between machines with different word size or endianness.
+-- | Efficient, but unsafe 'Get' and 'Putter' for
+-- "Data.Vector.Storable" vectors. The serialized format is an 'Int64'
+-- representing the length of the 'Vector', followed by the raw
+-- bytes. Therefore behavior may be unpredictable if serialized data
+-- is transferred between machines with different word size or
+-- endianness.
 module Data.Vector.Storable.UnsafeSerialize (
     unsafeGetVector
   , unsafePutVector
@@ -27,6 +28,7 @@ import Foreign.Storable (Storable, sizeOf)
 
 -- | Get a 'Vector' in host order, endian form, and word width.
 unsafeGetVector :: forall a. Storable a => Get (Vector a)
+{-# INLINE unsafeGetVector #-}
 unsafeGetVector = do 
   len64 <- get :: Get Int64
   when (len64 > fromIntegral (maxBound :: Int)) $
@@ -41,6 +43,7 @@ unsafeGetVector = do
 
 -- | Put a 'Vector' in host order, endian form, and word width.
 unsafePutVector :: forall a. Storable a => Putter (Vector a)
+{-# INLINE unsafePutVector #-}
 unsafePutVector v = do
   let (fp, len) = unsafeToForeignPtr0 v
       nbytes    = len * sizeOf (undefined :: a)
