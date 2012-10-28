@@ -33,7 +33,7 @@ import qualified Data.Vector.Storable  as VS
 genericGetVectorWith :: (VG.Vector v a) => Get a -> Get (v a)
 {-# INLINE genericGetVectorWith #-}
 genericGetVectorWith getter = do
-  len64 <- (get :: Get Int64)
+  len64 <- get :: Get Int64
   when (len64 > fromIntegral (maxBound :: Int)) $
     fail "Host can't deserialize a Vector longer than (maxBound :: Int)"
   VG.replicateM (fromIntegral len64) getter
@@ -43,7 +43,7 @@ genericGetVectorWith getter = do
 genericPutVectorWith :: (VG.Vector v a) => Putter a -> Putter (v a)
 {-# INLINE genericPutVectorWith #-}
 genericPutVectorWith putter v = do
-  put $ ((fromIntegral $ VG.length v) :: Int64)
+  put ((fromIntegral $ VG.length v) :: Int64)
   VG.mapM_ putter v
 
 

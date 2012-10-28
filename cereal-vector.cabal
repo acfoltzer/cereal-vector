@@ -17,7 +17,8 @@ source-repository head
   location: git://github.com/acfoltzer/cereal-vector.git
 
 library
-  exposed-modules:     Data.Vector.Serialize
+  exposed-modules:     Data.Vector.Serialize, 
+                       Data.Vector.Storable.UnsafeSerialize
   build-depends:       base == 4.*
                      , vector >= 0.9
                      , cereal == 0.3.*
