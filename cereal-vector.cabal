@@ -1,5 +1,5 @@
 name:                cereal-vector
-version:             0.2.0.0
+version:             0.2.0.1
 synopsis:            Serialize instances for Data.Vector types.
 homepage:            https://github.com/acfoltzer/cereal-vector
 bug-reports:         https://github.com/acfoltzer/cereal-vector/issues
@@ -17,11 +17,11 @@ source-repository head
   location: git://github.com/acfoltzer/cereal-vector.git
 
 library
-  exposed-modules:     Data.Vector.Serialize, 
+  exposed-modules:     Data.Vector.Serialize,
                        Data.Vector.Storable.UnsafeSerialize
   build-depends:       base == 4.*
-                     , vector >= 0.9
-                     , cereal == 0.3.*
+                     , vector     >= 0.9
+                     , cereal     >= 0.3
                      , bytestring >= 0.9
 
 test-suite test
